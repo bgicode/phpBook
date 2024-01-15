@@ -11,7 +11,7 @@
     // ключ массива, а $value - очередное значение. Если задан
     // также и второй параметр, то у соответствующего тега option
     // проставляется атрибут selected.
-    function selectItems($items, $selected = 0){
+    function selectItems($items, $selected = 0) {
         $text = "";
         foreach ($items as $k => $v) {
             if ($k === $selected)

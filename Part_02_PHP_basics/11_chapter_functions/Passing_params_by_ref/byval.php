@@ -1,5 +1,5 @@
 <?php ## Передача параметров по значению
-    function increment($a){
+    function increment($a) {
         echo "Текущее значение: $a<br />";
         $a++;
         echo "После увеличения: $a<br />";
