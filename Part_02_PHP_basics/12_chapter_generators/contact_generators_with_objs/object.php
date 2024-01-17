@@ -4,7 +4,7 @@
             echo "значение = $i<br />";
             yield $i;
         }
-    }
+    };
     $generator = simple();
     echo gettype($generator); // object
 ?>
