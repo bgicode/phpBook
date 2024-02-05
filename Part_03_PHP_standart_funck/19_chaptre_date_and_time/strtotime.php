@@ -2,7 +2,7 @@
 $check = [
     "now",
     "10 September 2015",
-    "+one days",
+    "+1 day",
     "+1 week",
     "+1 week 2 days 4 hours 2 seconds",
     "next Thursday",
