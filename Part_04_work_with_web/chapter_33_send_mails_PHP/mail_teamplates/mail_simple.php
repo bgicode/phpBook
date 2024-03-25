@@ -3,7 +3,7 @@
 // или являться сообщением форума или гостевой книги
 $text = "Cookies need love like everything does.";
 // Получатели письма
-$tos = ["a@mail.ru", "b@mail.ru"];
+$tos = ["desimo123@yandex.ru", "ud.desimo@gmail.com"];
 // Считываем шаблон
 $tpl = file_get_contents("mail.eml");
 // Отправляем письма в цикле по получателям
