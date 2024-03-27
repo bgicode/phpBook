@@ -1,44 +1,43 @@
-<?php
-if(!empty($_POST))
+<?php ## Отправка встроенных изображений
+function htmlimgmail($mail_to, $thema, $html, $path)
 {
-// Обработчик HTML-формы
-include "handler.php";
+    $EOL = "\n";
+    $boundary = "--".md5(uniqid(time()));
+    $headers = "MIME-Version: 1.0;$EOL";
+    $headers .= "From: somebody@somewhere.ru$EOL";
+    $headers .= "Content-Type: multipart/related; ".
+    "boundary=\"$boundary\"$EOL";
+    $multipart = "--{$boundary}$EOL";
+    $multipart .= "Content-Type: text/html; charset=koi8-r$EOL";
+    $multipart .= "Content-Transfer-Encoding: 8bit$EOL";
+    $multipart .= $EOL;
+    if($EOL == "\n") $multipart .= str_replace("\r\n", $EOL, $html);
+    $multipart .= $EOL;
+    if (!empty($path)) {
+        for($i = 0; $i < count($path); $i++) {
+            $file = file_get_contents($path[$i]);
+            $name = basename($path[$i]);
+            $multipart .= "$EOL--$boundary$EOL";
+            $multipart .= "Content-Type: image/jpeg; name=\"$name\"$EOL";
+            $multipart .= "Content-Transfer-Encoding: base64$EOL";
+            $multipart .= "Content-ID: <".md5($name).">$EOL";
+            $multipart .= $EOL;
+            $multipart .= chunk_split(base64_encode($file), 76, $EOL);
+        }
+    }
+    $multipart .= "$EOL--$boundary--$EOL";
+    if(!is_array($mail_to)) {
+        // Письмо отправляется одному адресату
+        if(!mail($mail_to, $thema, $multipart, $headers))
+            return false;
+        else
+            return true;
+        exit;
+    } else {
+    // Письмо отправляется на несколько адресов
+    foreach($mail_to as $mail) {
+        mail($mail, $thema, $multipart, $headers);
+        }
+    }
 }
 ?>
-<!DOCTYPE html>
-<html lang='ru'>
-<head>
-    <title>Отправка письма с вложением.</title>
-    <meta charset='utf-8'>
-</head>
-<body>
-    <table>
-        <form enctype='multipart/form-data' method='post'>
-            <tr>
-                <td width='50%'>Кому:</td>
-                <td align='right'>
-                    <input type='text' name='mail_to' maxlength='32'>
-                </td>
-            </tr>
-            <tr>
-                <td width='50%'>Тема:</td>
-                <td align='right'>
-                    <input type='text' name='mail_subject' maxlength='64'>
-                </td>
-            </tr>
-            <tr>
-                <td colspan='2'>
-                Сообщение:<br><textarea cols='56' rows='8' name='mail_msg'></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td width='50%'>Изображение:</td>
-                <td align='right'>
-                <   input type='file' name='mail_file' maxlength='64'>
-                </td>
-            </tr>
-            <tr><td colspan='2'><input type='submit' value='Отправить'></td></tr>
-        </form>
-    </table>
-</body>
-</html>
