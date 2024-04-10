@@ -73,4 +73,4 @@ $_SESSION['count'] = @$_SESSION['count'] + 1;
 <?=$_SESSION['count']?> раз(а).<br />
 Закройте браузер, чтобы обнулить счетчик.<br />
 <a href="<?=$_SERVER['SCRIPT_NAME']?>" target="_blank">Открыть дочернее окно
-браузера</a>.
+браузера</a>
