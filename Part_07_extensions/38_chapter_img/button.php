@@ -2,7 +2,7 @@
 // Получаем строку, которую нам передали в параметрах
 $string = $_SERVER['QUERY_STRING'] ?? "Hello, world!";
 // Загружаем рисунок фона с диска
-$im = imagecreatefromjpeg("button.jpg");
+$im = imagecreatefromjpeg("sample1.jpg");
 // Создаем в палитре новый цвет - черный
 $color = imageColorAllocate($im, 0, 0, 0);
 // Вычисляем размеры текста, который будет выведен
