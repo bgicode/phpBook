@@ -1,0 +1,4 @@
+INSERT INTO tbl VALUES (10, 20);
+INSERT INTO tbl (cat_id, id) VALUES (10, 20);
+INSERT INTO tbl (id) VALUES (30);
+INSERT INTO tbl () VALUES ();
