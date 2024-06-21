@@ -1,7 +1,7 @@
-<?php ## Группировка ключей
+<?php ## Удаление ключей из нескольких серверов
 require_once("connect_multi.php");
 $arr = ["first", "second", "third", "fourth", "fifth",
-    "sixth", "seventh", "eighth", "ninth", "tenth"];
+        "sixth", "seventh", "eighth", "ninth", "tenth"];
 // Подготавливаем массив серверов
 $keys = [];
 foreach($m->getServerList() as $server) {
@@ -12,7 +12,8 @@ foreach($arr as $key) {
     $server = $m->getServerByKey($key);
     $keys["{$server['host']}:{$server['port']}"][] = $key;
 }
-echo "<pre>";
-print_r($keys);
-echo "</pre>";
+// Удаляем группы ключей с их сервера
+foreach($keys as $server => $group) {
+    $m->deleteMultiByKey($group[0], $group);
+}
 ?>
